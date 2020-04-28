@@ -10,10 +10,21 @@ const
 ;
 
 //Event Listener
-calcBtn.addEventListener('click', calculateResult);
+calcBtn.addEventListener('click', calculate);
 
+
+//Pre calculate result function
+function calculate(e){
+	//Hide result
+	document.getElementById('results').style.display = 'none';
+	//Show loader
+	document.getElementById('loader').style.display = 'block' ;
+	// Loader timeOut
+	setTimeout(calculateResult, 1000);
+	e.preventDefault();
+}
 //Calculate Function
-function calculateResult(e){
+function calculateResult(){
 	// input vars
 	const principal = parseFloat(amount.value);
 	const calculatedInterest = parseFloat(interest.value) / 100 / 12;
@@ -26,6 +37,11 @@ function calculateResult(e){
 		monthlyPayment.value = monthly.toFixed(2);
 		totalPayment.value = (monthly * calculatedPayments).toFixed(2);
 		totalInterest.value = ((monthly * calculatedPayments) - principal ).toFixed(2);
+
+	//show result
+	document.getElementById('results').style.display = 'block';
+	//Hide loader
+	document.getElementById('loader').style.display = 'none' ;
 	}
 	else{
 		showError('Please check numbers');
@@ -33,6 +49,10 @@ function calculateResult(e){
 		e.preventDefault(); 
 }
 function showError(error){
+	//Hide result
+	document.getElementById('results').style.display = 'none';
+	//Hide loader
+	document.getElementById('loader').style.display = 'none' ;
 	//Create the error div
 	const errorDiv = document.createElement('div');
 	// add class
